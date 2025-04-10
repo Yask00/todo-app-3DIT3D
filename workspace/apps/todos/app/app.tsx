@@ -1,11 +1,14 @@
-// Uncomment this line to use CSS modules
-// import styles from './app.module.scss';
-import NxWelcome from './nx-welcome';
+import './App.scss';
+import ActiveList from './Todos/ActiveList/ActiveList';
+import AddTodo from './Todos/AddTodo/AddTodo';
+import CompletedList from './Todos/CompletedList/CompletedList';
 
 export function App() {
   return (
-    <div>
-      <NxWelcome title="todos" />
+    <div className="main">
+      <AddTodo />
+      <ActiveList />
+      <CompletedList />
     </div>
   );
 }

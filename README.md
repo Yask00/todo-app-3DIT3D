@@ -26,8 +26,11 @@
 * Serve todos app
     ```js
     npx nx serve todos
+    Runninng at http://localhost:4200/
     ```
 * Create component
     ```js
-    nx g @nx/react:component libs/ui/src/my-component.tsx globalCss=true style=scss
+    nx g @nx/react:component apps/todos/app/Todos/Todo/Todo.tsx globalCss=true style=scss
     ```
+
+        
