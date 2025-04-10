@@ -9,10 +9,14 @@
 * Add unt tests libraries -[x]
 * Add font awesome icons
 * Add Typescript/Scss -[x]
-* Mock backend with mswjs
+* Mock backend with mswjs-[x]
+    - GET - get all-[x]
+    - POST - add new-[x]
+    - DELETE - delete one-[x]
+    - PATCH - edit status of one only to completed-[x]
 * Todos logic
-    * Stored in backend
-    * Add/Edit(complete)/Delete
+    * Stored in backend-[x]
+    * Add/Edit(complete)/Delete-[x]
 
 # NX:
 * Create workscpace

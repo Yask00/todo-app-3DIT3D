@@ -8,11 +8,25 @@ import { HydratedRouter } from 'react-router/dom';
 import { startTransition, StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 
+async function enableMocking() {
+  if (process.env.NODE_ENV !== 'development') {
+    return
+  }
+ 
+  const { worker } = await import("./mocks/browser");
+ 
+  // `worker.start()` returns a Promise that resolves
+  // once the Service Worker is up and ready to intercept requests.
+  return worker.start()
+}
+
 startTransition(() => {
-  hydrateRoot(
-    document,
-    <StrictMode>
-      <HydratedRouter />
-    </StrictMode>
-  );
+  enableMocking().then(() => {
+    hydrateRoot(
+      document,
+      <StrictMode>
+        <HydratedRouter />
+      </StrictMode>
+    );
+  })
 });
