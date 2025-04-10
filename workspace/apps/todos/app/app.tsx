@@ -1,84 +1,49 @@
-import { useEffect } from 'react';
 import './App.scss';
 import ActiveList from './Todos/ActiveList/ActiveList';
 import AddTodo from './Todos/AddTodo/AddTodo';
 import CompletedList from './Todos/CompletedList/CompletedList';
 import { Todo } from './types/types';
+import {
+  useGetTodosQuery,
+  useAddTodoMutation,
+  useDeleteTodoMutation,
+  useCompleteTodoMutation,
+} from './Todos/todosApiSlice';
 
 export function App() {
+  // GET ALL and split them into two sections of the state
+  // WHEN COMPLETE ONE MOVE IT TO THE OTHER section
+  // when delete one remove it from the current section
+  // when add new add it to the normal section
 
-  useEffect(() => {
-    getTodosHandler();
-  }, []);
+  const { data: todos = [], isLoading, isError } = useGetTodosQuery({});
 
-  const getTodosHandler = () => {
-    fetch("https://example.com/todos").then((response) => {
-      if(!response.ok) {
-        throw new Error();
-      }
-      return response.json();
-    }).then((todos) => {
-      console.log(todos);
-    })
-  };
+  const [addTodo] = useAddTodoMutation();
+  const [deleteTodo] = useDeleteTodoMutation();
+  const [completeTodo] = useCompleteTodoMutation();
 
-  const addTodoHandler = async (todo: Todo) => {
-    const response = await fetch("https://example.com/todos/add", {
-      method: "POST",
-      body: JSON.stringify(todo),
-    });
-
-    if(!response.ok) {
-      throw new Error();
-    }
-
-    const newTodo = await response.json();
-    console.log(newTodo);
-  };
-
-  const completeTodoHandler = async(id: number) => {
-    const response = await fetch("https://example.com/todos/edit", {
-      method: "PATCH",
-      body: JSON.stringify({id: id}),
-    });
-
-    if(!response.ok) {
-      throw new Error();
-    }
-
-    const completedTodo = await response.json();
+  if (isError) {
+    return <div className="main"><div>Error</div></div>;
   }
 
-  const deleteTodoHandler = async(id: number) => {
-    const response = await fetch("https://example.com/todos/delete", {
-      method: "DELETE",
-      body: JSON.stringify({id: id}),
-    });
-
-    if(!response.ok) {
-      throw new Error();
-    }
-
-    const deletedTodo = await response.json();
+  if (isLoading) {
+    return <div className="main"><div>Loading...</div></div>;
   }
 
   return (
     <div className="main">
-      <AddTodo />
-      <ActiveList />
-      <CompletedList />
-      <button onClick={() => addTodoHandler({ text: 'added', status: 'active' })}>
+      {todos.map((todo: Todo) => {
+        return <div key={todo.id}>{todo.text}</div>;
+      })}
+      <button onClick={() => addTodo({ text: 'added', status: 'active' })}>
         Add todo
       </button>
-      <button onClick={getTodosHandler}>
-        Get todos
-      </button>
-      <button onClick={() => completeTodoHandler(6)}>
-        Complete last added
-      </button>
-      <button onClick={() => deleteTodoHandler(6)}>
-        Delete last added
-      </button>
+      <button onClick={() => deleteTodo({ id: 6 })}>Delete last added</button>
+      <button onClick={() => completeTodo(6)}>Complete last added</button>
+      {/* <AddTodo />
+      <ActiveList />
+      <CompletedList />
+       */}
     </div>
   );
 }

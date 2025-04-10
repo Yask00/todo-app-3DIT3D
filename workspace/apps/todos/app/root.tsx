@@ -7,6 +7,8 @@ import {
   type MetaFunction,
   type LinksFunction,
 } from 'react-router';
+import { store } from './state/store';
+import { Provider } from 'react-redux';
 
 export const meta: MetaFunction = () => [
   {
@@ -51,5 +53,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  return <Outlet />;
+  return (
+    <Provider store={store}>
+      <Outlet />
+    </Provider>
+  );
 }
