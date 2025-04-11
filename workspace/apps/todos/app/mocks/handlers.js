@@ -51,7 +51,7 @@ export const handlers = [
     return HttpResponse.json(editedTodo);
   }),
   http.delete('https://example.com/todos/delete', async ({ request }) => {
-    const { id } = await request.json();
+    const id = await request.json();
     const deletedTodoIndex = todos.findIndex((todo) => todo.id === id);
 
     if (deletedTodoIndex < 0) {

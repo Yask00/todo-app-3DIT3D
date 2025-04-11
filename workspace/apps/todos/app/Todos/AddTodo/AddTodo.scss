@@ -1,7 +1,31 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.add-todo {
+    width: 430px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    
+    &__text{
+        color: #777777;
+        border: 1px solid #3E1671;
+        border-radius: 10px;
+        font-size: 16px;
+        line-height: 18px;
+        padding: 10px 20px;
+        background-color: transparent;
+        margin-right: 10px;
+        flex-grow: 1;
+    }
+
+    &__btn {
+        background-color: #9E78CF;
+        border-radius: 10px;
+        height: 40px;
+        width: 40px;
+        color: white;
+        border: none;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

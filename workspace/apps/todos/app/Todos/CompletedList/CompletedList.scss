@@ -1,7 +1,13 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.completed-list {
+    margin: 50px 0;
+    width: 430px;;
+
+    .header {
+        margin-bottom: 15px;
+        color: #fff;
+        font-size: 16px;
+        line-height: 19px;
+        text-align: left;
+        width: 100%;
+    }
+}

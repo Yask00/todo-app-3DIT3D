@@ -1,7 +1,37 @@
-/*
- * Replace this with your own classes
- *
- * e.g.
- * .container {
- * }
-*/
+.todo {
+    width: 430px;
+    background-color: #15101C;
+    padding: 20px;
+    font-size: 16px;
+    line-height: 19px;
+    border-radius: 10px;
+    box-sizing: border-box;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+
+    &--active {
+        color: #9E78CF;
+    }
+
+    &--completed {
+        color: #78CFB0;
+        text-decoration: line-through;
+    }
+
+    .actions {
+        svg {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+
+            &:first-child {
+                margin-right: 10px;
+            }
+        }     
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

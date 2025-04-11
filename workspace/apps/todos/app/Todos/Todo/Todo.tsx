@@ -1,11 +1,35 @@
-import styles from './Todo.scss';
+import './Todo.scss';
+import { Todo as TodoInt } from '../../types/types';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  useDeleteTodoMutation,
+  useCompleteTodoMutation,
+} from '../todosApiSlice';
 
-export function Todo() {
+interface TodoProps {
+  todo: TodoInt;
+}
+
+const Todo: React.FC<TodoProps> = ({ todo }) => {
+  const [deleteTodo] = useDeleteTodoMutation();
+  const [completeTodo] = useCompleteTodoMutation();
+
   return (
-    <div className="">
-      <h1>Welcome to Todo!</h1>
+    <div className={`todo todo--${todo.status}`}>
+      <span>{todo.text}</span>
+      {todo.status === 'active' && (
+        <div className="actions">
+          <FontAwesomeIcon
+            onClick={() => completeTodo(todo.id)}
+            icon={faCheck}
+          />
+          <FontAwesomeIcon onClick={() => deleteTodo(todo.id)} icon={faTrash} />
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default Todo;

@@ -2,48 +2,45 @@ import './App.scss';
 import ActiveList from './Todos/ActiveList/ActiveList';
 import AddTodo from './Todos/AddTodo/AddTodo';
 import CompletedList from './Todos/CompletedList/CompletedList';
-import { Todo } from './types/types';
-import {
-  useGetTodosQuery,
-  useAddTodoMutation,
-  useDeleteTodoMutation,
-  useCompleteTodoMutation,
-} from './Todos/todosApiSlice';
+import { Todo as TodoInt } from './types/types';
+import { useGetTodosQuery } from './Todos/todosApiSlice';
+import { useEffect, useState } from 'react';
 
 export function App() {
-  // GET ALL and split them into two sections of the state
-  // WHEN COMPLETE ONE MOVE IT TO THE OTHER section
-  // when delete one remove it from the current section
-  // when add new add it to the normal section
-
   const { data: todos = [], isLoading, isError } = useGetTodosQuery({});
+  const [completeTodos, setCompleteTodos] = useState<TodoInt[]>([]);
+  const [activeTodos, setActiveTodos] = useState<TodoInt[]>([]);
 
-  const [addTodo] = useAddTodoMutation();
-  const [deleteTodo] = useDeleteTodoMutation();
-  const [completeTodo] = useCompleteTodoMutation();
+  useEffect(() => {
+    const completed = todos.filter(
+      (todo: TodoInt) => todo.status === 'completed'
+    );
+    const active = todos.filter((todo: TodoInt) => todo.status === 'active');
+    setCompleteTodos(completed);
+    setActiveTodos(active);
+  }, [todos]);
 
   if (isError) {
-    return <div className="main"><div>Error</div></div>;
+    return (
+      <div className="main">
+        <div>Error</div>
+      </div>
+    );
   }
 
   if (isLoading) {
-    return <div className="main"><div>Loading...</div></div>;
+    return (
+      <div className="main">
+        <div>Loading...</div>
+      </div>
+    );
   }
 
   return (
     <div className="main">
-      {todos.map((todo: Todo) => {
-        return <div key={todo.id}>{todo.text}</div>;
-      })}
-      <button onClick={() => addTodo({ text: 'added', status: 'active' })}>
-        Add todo
-      </button>
-      <button onClick={() => deleteTodo({ id: 6 })}>Delete last added</button>
-      <button onClick={() => completeTodo(6)}>Complete last added</button>
-      {/* <AddTodo />
-      <ActiveList />
-      <CompletedList />
-       */}
+      <AddTodo />
+      <ActiveList todos={activeTodos} />
+      <CompletedList todos={completeTodos} />
     </div>
   );
 }
