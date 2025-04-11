@@ -24,8 +24,13 @@ const Todo: React.FC<TodoProps> = ({ todo }) => {
           <FontAwesomeIcon
             onClick={() => completeTodo(todo.id)}
             icon={faCheck}
+            data-testid="check-icon"
           />
-          <FontAwesomeIcon onClick={() => deleteTodo(todo.id)} icon={faTrash} />
+          <FontAwesomeIcon
+            onClick={() => deleteTodo(todo.id)}
+            icon={faTrash}
+            data-testid="delete-icon"
+          />
         </div>
       )}
     </div>

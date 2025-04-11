@@ -12,7 +12,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "jsx": "react-jsx",
-    "moduleResolution": "bundler",
-    "types": ["@react-router/node"]
+    "moduleResolution": "node",
+    "types": ["@react-router/node", "jest", "node", "@testing-library/jest-dom"],
   }
 }

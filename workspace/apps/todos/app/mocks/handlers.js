@@ -30,7 +30,7 @@ const todos = [
 
 export const handlers = [
   http.get('https://example.com/todos', () => {
-    return HttpResponse.json(todos);
+    return HttpResponse.json(todos, { status: 200 });
   }),
   http.post('https://example.com/todos/add', async ({ request }) => {
     const newTodo = await request.json();
@@ -48,7 +48,7 @@ export const handlers = [
     }
 
     editedTodo.status = 'completed';
-    return HttpResponse.json(editedTodo);
+    return HttpResponse.json(editedTodo, { status: 200 });
   }),
   http.delete('https://example.com/todos/delete', async ({ request }) => {
     const id = await request.json();
@@ -60,6 +60,6 @@ export const handlers = [
 
     const deletedTodo = todos.splice(deletedTodoIndex, 1);
 
-    return HttpResponse.json(deletedTodo);
+    return HttpResponse.json(deletedTodo, { status: 200 });
   }),
 ];

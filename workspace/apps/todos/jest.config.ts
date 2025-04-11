@@ -1,11 +1,25 @@
-export default {
-  displayName: 'todos',
-  preset: '../../jest.preset.js',
-  setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  transform: {
-    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '@nx/react/plugins/jest',
-    '^.+\\.[tj]sx?$': ['babel-jest', { presets: ['@nx/react/babel'] }],
+import type { Config } from "jest";
+
+const config: Config = {
+  preset: "ts-jest",
+  moduleNameMapper: {
+    "\\.(css|scss)$": "identity-obj-proxy",
+    "^.+\\.svg": "<rootDir>/tests/mocks/svgMock.tsx",
   },
-  moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
-  coverageDirectory: 'test-output/jest/coverage',
+  // to obtain access to the matchers.
+  setupFilesAfterEnv: ["@testing-library/jest-dom", "<rootDir>/tests/setupTests.ts"],
+  moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+  modulePaths: ["<rootDir>"],
+  testEnvironment: "jsdom",
+  transform: {
+    "^.+\\.(ts|tsx)$": [
+      "ts-jest",
+      {
+        tsconfig: "tsconfig.test.json",
+      },
+    ],
+    "^.+\\.(js|jsx)$": "babel-jest",
+  },
 };
+
+export default config;

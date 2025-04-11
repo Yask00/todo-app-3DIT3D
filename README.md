@@ -7,7 +7,7 @@
 * Scaffold workspace/project with NX -[x]
 * List commands to create new components/functionalities-[x]
 * Add unt tests libraries -[x]
-* Add font awesome icons
+* Add font awesome icons-[x]
 * Add Typescript/Scss -[x]
 * Mock backend with mswjs-[x]
     - GET - get all-[x]
@@ -17,6 +17,7 @@
 * Todos logic
     * Stored in backend-[x]
     * Add/Edit(complete)/Delete-[x]
+* Unit tests -[x]
 
 # NX:
 * Create workscpace
@@ -31,6 +32,10 @@
     ```js
     npx nx serve todos
     Runninng at http://localhost:4200/
+    ```
+* Test todos app
+    ```js
+    npx nx test todos
     ```
 * Create component
     ```js

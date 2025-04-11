@@ -1,17 +1,16 @@
 import './AddTodo.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { useRef } from 'react';
+import { useState } from 'react';
 import { useAddTodoMutation } from '../todosApiSlice';
 
-export function AddTodo() {
+const AddTodo: React.FC = () => {
   const [addTodo] = useAddTodoMutation();
-  const newTodo = useRef<HTMLInputElement>(null);
+  const [todoText, setTodoText] = useState('');
 
   const submitHandler = () => {
-    const todoText = newTodo.current && newTodo.current.value.trim();
-    if (!todoText || todoText === '') {
-      throw new Error();
+    if (todoText.trim() === '') {
+      return;
     }
 
     addTodo({
@@ -23,18 +22,23 @@ export function AddTodo() {
   return (
     <div className="add-todo">
       <input
-        ref={newTodo}
+        onChange={(e) => setTodoText(e.target.value)}
         className="add-todo__text"
         type="text"
         name=""
         id=""
         placeholder="Add a new task"
       />
-      <button onClick={submitHandler} className="add-todo__btn">
+      <button
+        onClick={submitHandler}
+        disabled={todoText.trim() === ''}
+        type="button"
+        className="add-todo__btn"
+      >
         <FontAwesomeIcon icon={faPlus} />
       </button>
     </div>
   );
-}
+};
 
 export default AddTodo;
