@@ -32,7 +32,7 @@ const Todo: React.FC<TodoProps> = ({ todo }) => {
         if (todo.id !== undefined) {
           handleDelete(todo.id);
         }
-      }, 500000);
+      }, 2000);
     }
 
     if (timeout && !deleteInProcess) {
